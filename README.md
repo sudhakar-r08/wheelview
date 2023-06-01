@@ -15,15 +15,7 @@ The WheelView can be used as a way to select one item from a list. The `Selectio
 
 Note - Frame rate is much better than these poorly converted gifs!
 
-Setup
------
 
-Include this in build.gradle project dependencies:
-```groovy
-dependencies {
-    compile 'com.github.lukedeighton:wheelview:0.4.2'
-}
-```
 
 Usage
 -----
@@ -35,7 +27,7 @@ Usage
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.lukedeighton.wheelview.WheelView
+    <com.sudhakar.wheelview.WheelView
         android:id="@+id/wheelview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -142,11 +134,4 @@ Future Goals
 
 Convert this project to use `LayoutManager` to replace Drawables with Views
 
-License
--------
 
-Apache License Version 2.0
-http://apache.org/licenses/LICENSE-2.0.txt
-
-[1]: ./Graphics/bottom_wheel.gif
-[2]: ./Graphics/center_wheel.gif
