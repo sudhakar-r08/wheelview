@@ -1,9 +1,9 @@
-package com.lukedeighton.wheelview.transformer;
+package com.sudhakar.wheelview.transformer;
 
 import android.graphics.Rect;
 
-import com.lukedeighton.wheelview.Circle;
-import com.lukedeighton.wheelview.WheelView;
+import com.sudhakar.wheelview.Circle;
+import com.sudhakar.wheelview.WheelView;
 
 public class SimpleItemTransformer implements WheelItemTransformer {
     @Override

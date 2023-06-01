@@ -1,21 +1,20 @@
 /**
- *
- *   Copyright (C) 2014 Luke Deighton
- *
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
+ * Copyright (C) 2014 Luke Deighton
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
-package com.lukedeighton.wheelview;
+package com.sudhakar.wheelview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -25,8 +24,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.SystemClock;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.InflateException;
 import android.view.MotionEvent;
@@ -34,11 +31,14 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lukedeighton.wheelview.adapter.WheelAdapter;
-import com.lukedeighton.wheelview.transformer.FadingSelectionTransformer;
-import com.lukedeighton.wheelview.transformer.ScalingItemTransformer;
-import com.lukedeighton.wheelview.transformer.WheelItemTransformer;
-import com.lukedeighton.wheelview.transformer.WheelSelectionTransformer;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+
+import com.sudhakar.wheelview.adapter.WheelAdapter;
+import com.sudhakar.wheelview.transformer.FadingSelectionTransformer;
+import com.sudhakar.wheelview.transformer.ScalingItemTransformer;
+import com.sudhakar.wheelview.transformer.WheelItemTransformer;
+import com.sudhakar.wheelview.transformer.WheelSelectionTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +78,7 @@ public class WheelView extends View {
     private static final float TOUCH_DRAG_COEFFICIENT = 0.8f;
 
     private static final float[] TOUCH_FACTORS;
+
     static {
         int size = TOUCH_FACTOR_SIZE;
         TOUCH_FACTORS = new float[size];
@@ -108,6 +109,8 @@ public class WheelView extends View {
     private Drawable mWheelDrawable;
     private Drawable mEmptyItemDrawable;
     private Drawable mSelectionDrawable;
+
+    private Drawable mBackgroundDrawable;
 
     private boolean mIsRepeatable;
     private boolean mIsWheelDrawableRotatable = true;
@@ -143,6 +146,7 @@ public class WheelView extends View {
     private int mLeft, mTop, mWidth, mHeight;
     private Rect mViewBounds = new Rect();
     private Circle mWheelBounds;
+    private Circle mBackgroundWheelBounds;
 
     /**
      * Wheel item bounds are always pre-rotation and based on the {@link #mSelectionAngle}
@@ -180,7 +184,7 @@ public class WheelView extends View {
     public WheelView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initWheelView();
-
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.WheelView, defStyle, 0);
         //TODO possible pattern to follow from android source
         /* final int N = a.getIndexCount();
         for (int i = 0; i < N; i++) {
@@ -190,7 +194,6 @@ public class WheelView extends View {
                     background = a.getDrawable(attr);
                     break; */
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.WheelView, defStyle, 0);
 
         Drawable d = a.getDrawable(R.styleable.WheelView_emptyItemDrawable);
         if (d != null) {
@@ -199,14 +202,16 @@ public class WheelView extends View {
             int color = a.getColor(R.styleable.WheelView_emptyItemColor, NEVER_USED);
             setEmptyItemColor(color);
         }
+        mBackgroundDrawable = a.getDrawable(R.styleable.WheelView_wheelDrawable);
 
-        d = a.getDrawable(R.styleable.WheelView_wheelDrawable);
-        if (d != null) {
-            setWheelDrawable(d);
-        } else if (a.hasValue(R.styleable.WheelView_wheelColor)){
+//        if (d != null) {
+//            setWheelDrawable(d);
+//        } else
+        if (a.hasValue(R.styleable.WheelView_wheelColor)) {
             int color = a.getColor(R.styleable.WheelView_wheelColor, NEVER_USED);
             setWheelColor(color);
         }
+
 
         d = a.getDrawable(R.styleable.WheelView_selectionDrawable);
         if (d != null) {
@@ -403,7 +408,8 @@ public class WheelView extends View {
     }
 
     public void setWheelItemTransformer(WheelItemTransformer itemTransformer) {
-        if (itemTransformer == null) throw new IllegalArgumentException("WheelItemTransformer cannot be null");
+        if (itemTransformer == null)
+            throw new IllegalArgumentException("WheelItemTransformer cannot be null");
         mItemTransformer = itemTransformer;
     }
 
@@ -645,7 +651,7 @@ public class WheelView extends View {
     public static int resolveSizeAndState(int size, int measureSpec) {
         int result = size;
         int specMode = MeasureSpec.getMode(measureSpec);
-        int specSize =  MeasureSpec.getSize(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
         switch (specMode) {
             case MeasureSpec.UNSPECIFIED:
                 result = size;
@@ -689,7 +695,9 @@ public class WheelView extends View {
         final int centerY = (int) (mOffsetY + height * relativeVertical);
 
         int wheelRadius = measureWheelRadius(mWheelRadius, width, height);
-        mWheelBounds = new Circle(centerX, centerY, wheelRadius);
+        mWheelBounds = new Circle(centerX, centerY, wheelRadius - dpToPx(30));
+
+        mBackgroundWheelBounds = new Circle(centerX, centerY, wheelRadius);
 
         if (mWheelDrawable != null) {
             mWheelDrawable.setBounds(mWheelBounds.getBoundingRect());
@@ -699,7 +707,7 @@ public class WheelView extends View {
     private int measureWheelRadius(int radius, int width, int height) {
         if (radius == ViewGroup.LayoutParams.MATCH_PARENT) {
             return Math.min(width - getPaddingLeft() - getPaddingRight(),
-                            height - getPaddingTop() - getPaddingBottom()) / 2;
+                    height - getPaddingTop() - getPaddingBottom()) / 2;
         } else {
             return radius;
         }
@@ -1172,7 +1180,7 @@ public class WheelView extends View {
      */
     private void update(float deltaTime) {
         float vel = mAngularVelocity;
-        float velSqr = vel*vel;
+        float velSqr = vel * vel;
         if (vel > 0f) {
             //TODO the damping is not based on time
             mAngularVelocity -= velSqr * VELOCITY_FRICTION_COEFFICIENT + CONSTANT_FRICTION_COEFFICIENT;
@@ -1200,6 +1208,14 @@ public class WheelView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
+        // Draw background using the vector drawable
+        if (mBackgroundDrawable != null) {
+
+            mBackgroundDrawable.setBounds(mBackgroundWheelBounds.getBoundingRect());
+
+            mBackgroundDrawable.draw(canvas);
+        }
         updateWheelStateIfReq();
 
         if (mWheelBounds == null) return; //issue with layoutWheel not being called before draw call
@@ -1209,8 +1225,10 @@ public class WheelView extends View {
         }
 
         if (mAdapter != null && mAdapterItemCount > 0) {
-           drawWheelItems(canvas);
+            drawWheelItems(canvas);
         }
+
+
     }
 
     private void drawWheel(Canvas canvas) {
@@ -1380,6 +1398,11 @@ public class WheelView extends View {
         return cacheItem;
     }
 
+    public int dpToPx(float dpValue) {
+        float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
     /**
      * A simple class to represent a vector with an add and cross product method. Used only to
      * calculate the Wheel's angular velocity in {@link #flingWheel()}
@@ -1387,7 +1410,8 @@ public class WheelView extends View {
     static class Vector {
         float x, y;
 
-        Vector() {}
+        Vector() {
+        }
 
         void set(float x, float y) {
             this.x = x;

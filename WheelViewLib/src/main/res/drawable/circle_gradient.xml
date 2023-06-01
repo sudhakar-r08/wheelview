@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+            <gradient
+                android:angle="90"
+                android:endColor="#C32127"
+                android:startColor="#267BC5"
+                android:type="linear" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+
+    <!-- Background Color (white) -->
+
+    <item
+        android:bottom="5dp"
+        android:end="5dp"
+        android:start="5dp"
+        android:top="5dp">
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="@color/temp_background_fill" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item
+        android:bottom="10dp"
+        android:end="10dp"
+        android:start="10dp"
+        android:top="10dp">
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="@color/circle_blue_05" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item
+        android:bottom="10dp"
+        android:end="10dp"
+        android:start="10dp"
+        android:top="10dp">
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="@color/circle_blue_10" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item
+        android:bottom="10dp"
+        android:end="10dp"
+        android:start="10dp"
+        android:top="10dp">
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="@color/circle_blue_20" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item
+        android:bottom="10dp"
+        android:end="10dp"
+        android:start="10dp"
+        android:top="10dp">
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="@color/circle_blue_30" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item
+        android:bottom="10dp"
+        android:end="10dp"
+        android:start="10dp"
+        android:top="10dp">
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="@color/circle_blue_40" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item
+        android:bottom="10dp"
+        android:end="10dp"
+        android:start="10dp"
+        android:top="10dp">
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="@color/circle_blue_50" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item
+        android:bottom="10dp"
+        android:end="10dp"
+        android:start="10dp"
+        android:top="10dp">
+        <shape android:shape="oval">
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            <solid android:color="@color/circle_blue_60" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+
+    <!-- Background Color (white) -->
+    <item
+        android:bottom="10dp"
+        android:end="10dp"
+        android:start="10dp"
+        android:top="10dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/background_white" />
+
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+
+</layer-list>

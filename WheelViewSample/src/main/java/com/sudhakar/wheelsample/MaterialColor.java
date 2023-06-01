@@ -1,4 +1,4 @@
-package com.lukedeighton.wheelsample;
+package com.sudhakar.wheelsample;
 
 import android.content.Context;
 
@@ -42,7 +42,7 @@ public class MaterialColor {
         }
 
         Pattern pattern = Pattern.compile(regex);
-        List<Map.Entry<String, Integer>> materialColors = new ArrayList<Map.Entry<String, Integer>>();
+        List<Map.Entry<String, Integer>> materialColors = new ArrayList<>();
         for(Map.Entry<String, Integer> entry : sMaterialHashMap.entrySet()) {
             if (!pattern.matcher(entry.getKey()).matches()) continue;
             materialColors.add(entry);

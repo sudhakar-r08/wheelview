@@ -1,4 +1,4 @@
-package com.lukedeighton.wheelview;
+package com.sudhakar.wheelview;
 
 import android.graphics.Rect;
 

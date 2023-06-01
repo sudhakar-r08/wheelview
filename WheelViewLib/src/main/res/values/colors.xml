@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="temp_background_fill">#FFFFFF</color>
+    <color name="circle_blue_60">#9977BFFD</color>
+    <color name="circle_blue_50">#8077BFFD</color>
+    <color name="circle_blue_40">#6677BFFD</color>
+    <color name="circle_blue_30">#4D77BFFD</color>
+    <color name="circle_blue_20">#3377BFFD</color>
+    <color name="circle_blue_10">#1A77BFFD</color>
+    <color name="circle_blue_05">#0D77BFFD</color>
+    <color name="background_white">#ffffff</color>
+</resources>

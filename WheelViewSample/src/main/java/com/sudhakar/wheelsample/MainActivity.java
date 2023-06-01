@@ -1,4 +1,4 @@
-package com.lukedeighton.wheelsample;
+package com.sudhakar.wheelsample;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -10,8 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.lukedeighton.wheelview.WheelView;
-import com.lukedeighton.wheelview.adapter.WheelArrayAdapter;
+import com.sudhakar.wheelview.WheelView;
+import com.sudhakar.wheelview.adapter.WheelArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,24 +29,31 @@ public class MainActivity extends Activity {
         final WheelView wheelView = (WheelView) findViewById(R.id.wheelview);
 
         //create data for the adapter
-        List<Map.Entry<String, Integer>> entries = new ArrayList<Map.Entry<String, Integer>>(ITEM_COUNT);
-        for (int i = 0; i < ITEM_COUNT; i++) {
-            Map.Entry<String, Integer> entry = MaterialColor.random(this, "\\D*_500$");
-            entries.add(entry);
+//        List<Map.Entry<String, Integer>> entries = new ArrayList<Map.Entry<String, Integer>>(ITEM_COUNT);
+//        for (int i = 0; i < ITEM_COUNT; i++) {
+//            Map.Entry<String, Integer> entry = MaterialColor.random(this, "\\D*_500$");
+//            entries.add(entry);
+//        }
+
+        ArrayList<Integer> list2 = new ArrayList<>();
+        for (int i = 0; i <= 230; i += 5) {
+            list2.add(i);
         }
 
         //populate the adapter, that knows how to draw each item (as you would do with a ListAdapter)
-        wheelView.setAdapter(new MaterialColorAdapter(entries));
+//        wheelView.setAdapter(new MaterialColorAdapter(entries));
+        wheelView.setAdapter(new WheelAdapter(list2,this));
+
 
         //a listener for receiving a callback for when the item closest to the selection angle changes
-        wheelView.setOnWheelItemSelectedListener(new WheelView.OnWheelItemSelectListener() {
-            @Override
-            public void onWheelItemSelected(WheelView parent, Drawable itemDrawable, int position) {
-                //get the item at this position
-                Map.Entry<String, Integer> selectedEntry = ((MaterialColorAdapter) parent.getAdapter()).getItem(position);
-                parent.setSelectionColor(getContrastColor(selectedEntry));
-            }
-        });
+//        wheelView.setOnWheelItemSelectedListener(new WheelView.OnWheelItemSelectListener() {
+//            @Override
+//            public void onWheelItemSelected(WheelView parent, Drawable itemDrawable, int position) {
+//                //get the item at this position
+////                Map.Entry<String, Integer> selectedEntry = ((MaterialColorAdapter) parent.getAdapter()).getItem(position);
+////                parent.setSelectionColor(getContrastColor(selectedEntry));
+//            }
+//        });
 
         wheelView.setOnWheelItemClickListener(new WheelView.OnWheelItemClickListener() {
             @Override
@@ -57,7 +64,7 @@ public class MainActivity extends Activity {
         });
 
         //initialise the selection drawable with the first contrast color
-        wheelView.setSelectionColor(getContrastColor(entries.get(0)));
+//        wheelView.setSelectionColor(getContrastColor(entries.get(0)));
 
         /*
         new Handler().postDelayed(new Runnable() {
